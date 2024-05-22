@@ -1,4 +1,4 @@
-package com.cafeteriamallorca.backcalderongarrotejavier.domain.model;
+package com.cafeteriamallorca.backcalderongarrotejavier.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

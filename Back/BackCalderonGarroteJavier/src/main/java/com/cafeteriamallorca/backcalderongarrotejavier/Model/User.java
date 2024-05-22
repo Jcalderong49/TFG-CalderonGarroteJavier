@@ -1,4 +1,4 @@
-package com.cafeteriamallorca.backcalderongarrotejavier.domain.model;
+package com.cafeteriamallorca.backcalderongarrotejavier.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,4 +21,6 @@ public class User {
     private String password;
     private UserType userType;
     private LocalDateTime dateCreated;
+    private LocalDateTime dateUpdated;
+
 }
