@@ -1,6 +1,6 @@
-package com.cafeteriamallorca.backcalderongarrotejavier.domain.port;
+package com.cafeteriamallorca.backcalderongarrotejavier.Repository;
 
-import com.cafeteriamallorca.backcalderongarrotejavier.domain.model.Product;
+import com.cafeteriamallorca.backcalderongarrotejavier.Model.Product;
 
 public interface IProductRepository {
     Product save (Product product);

@@ -1,6 +1,6 @@
-package com.cafeteriamallorca.backcalderongarrotejavier.domain.port;
+package com.cafeteriamallorca.backcalderongarrotejavier.Repository;
 
-import com.cafeteriamallorca.backcalderongarrotejavier.domain.model.Category;
+import com.cafeteriamallorca.backcalderongarrotejavier.Model.Category;
 
 public interface ICategoryRepository {
     Category save (Category category);
