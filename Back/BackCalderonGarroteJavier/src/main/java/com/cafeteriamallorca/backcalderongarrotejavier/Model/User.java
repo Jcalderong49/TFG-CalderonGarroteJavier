@@ -1,4 +1,4 @@
-package com.cafeteriamallorca.backcalderongarrotejavier.domain.model;
+package com.cafeteriamallorca.backcalderongarrotejavier.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class User {
     private Integer id;
     private String username;
@@ -21,4 +20,7 @@ public class User {
     private String password;
     private UserType userType;
     private LocalDateTime dateCreated;
+    private LocalDateTime dateUpdated;
+
+
 }

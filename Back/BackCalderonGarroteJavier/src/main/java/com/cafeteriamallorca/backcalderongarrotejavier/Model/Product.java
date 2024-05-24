@@ -1,4 +1,5 @@
-package com.cafeteriamallorca.backcalderongarrotejavier.domain.model;
+package com.cafeteriamallorca.backcalderongarrotejavier.Model;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -6,11 +7,9 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Product {
     private Integer id;
     private String name;
@@ -20,6 +19,6 @@ public class Product {
     private BigDecimal price;
     private LocalDateTime dateCreated;
     private LocalDateTime dateUpdated;
-    private Integer userId;
+    private  Integer userId;
     private Integer categoryId;
 }
