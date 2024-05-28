@@ -4,32 +4,35 @@ import com.cafeteriamallorca.backcalderongarrotejavier.Repository.ICategoryRepos
 import com.cafeteriamallorca.backcalderongarrotejavier.Repository.IOrderRepository;
 import com.cafeteriamallorca.backcalderongarrotejavier.Repository.IProductRepository;
 import com.cafeteriamallorca.backcalderongarrotejavier.Repository.IUserRepository;
-import com.cafeteriamallorca.backcalderongarrotejavier.Services.CategoryService;
-import com.cafeteriamallorca.backcalderongarrotejavier.Services.OrderService;
-import com.cafeteriamallorca.backcalderongarrotejavier.Services.ProductService;
-import com.cafeteriamallorca.backcalderongarrotejavier.Services.UserService;
+import com.cafeteriamallorca.backcalderongarrotejavier.Services.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BeanConfiguration {
-    @Bean
-    public UserService userService(IUserRepository iUserRepository){
-        return new UserService(iUserRepository);
-    }
 
-    @Bean
-    public CategoryService categoryService(ICategoryRepository iCategoryRepository){
-        return new CategoryService(iCategoryRepository);
-    }
+        @Bean
+        public UserService userService(IUserRepository iUserRepository){
+            return new UserService(iUserRepository);
+        }
 
-    @Bean
-    public ProductService productService(IProductRepository iProductRepository){
-        return  new ProductService(iProductRepository);
-    }
-    @Bean
-    public OrderService orderService(IOrderRepository iOrderRepository){
-        return new OrderService(iOrderRepository);
-    }
+        @Bean
+        public CategoryService categoryService(ICategoryRepository iCategoryRepository){
+            return new CategoryService(iCategoryRepository);
+        }
 
-}
+        @Bean
+        public ProductService productService(IProductRepository iProductRepository, UploadFile uploadFile){
+            return  new ProductService(iProductRepository, uploadFile);
+        }
+        @Bean
+        public OrderService orderService(IOrderRepository iOrderRepository){
+            return new OrderService(iOrderRepository);
+        }
+        @Bean
+        public UploadFile uploadFile(){
+            return new UploadFile();
+        }
+
+
+    }

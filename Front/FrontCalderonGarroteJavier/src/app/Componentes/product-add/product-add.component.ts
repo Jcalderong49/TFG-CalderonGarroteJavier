@@ -15,6 +15,8 @@ export class ProductAddComponent implements OnInit {
   categoryId: string = '3';
   isEdit: boolean = false;
   productForm!: FormGroup;
+  selectFile!: File;
+  currentImageUrl: string = '';
 
   constructor(
     private productService: ProductService,
@@ -28,7 +30,8 @@ export class ProductAddComponent implements OnInit {
       code: ['', Validators.required],
       name: ['', Validators.required],
       description: ['', Validators.required],
-      price: ['', [Validators.required, Validators.min(0.01)]]
+      price: ['', [Validators.required, Validators.min(0.01)]],
+      urlImage: ['']
     });
 
     this.activateRouter.params.subscribe(params => {
@@ -41,18 +44,23 @@ export class ProductAddComponent implements OnInit {
   }
 
   addProduct(): void {
-    const productData = {
-      id: this.id,
-      code: this.productForm.value.code,
-      name: this.productForm.value.name,
-      description: this.productForm.value.description,
-      price: this.productForm.value.price,
-      userId: this.userId,
-      categoryId: this.categoryId
-    };
+    const formData: FormData = new FormData();
+    formData.append('id', this.id.toString());
+    formData.append('code', this.productForm.value.code);
+    formData.append('name', this.productForm.value.name);
+    formData.append('description', this.productForm.value.description);
+    formData.append('price', this.productForm.value.price.toString());
+    formData.append('userId', this.userId);
+    formData.append('categoryId', this.categoryId);
+
+    if (this.selectFile) {
+      formData.append('image', this.selectFile);
+    } else if (this.isEdit && this.currentImageUrl) {
+      formData.append('urlImage', this.currentImageUrl);
+    }
 
     if (this.isEdit) {
-      this.productService.updateProduct(this.id, productData).subscribe(response => {
+      this.productService.updateProduct(this.id, formData).subscribe(response => {
         Swal.fire({
           icon: 'success',
           title: 'Producto Editado',
@@ -68,7 +76,7 @@ export class ProductAddComponent implements OnInit {
         });
       });
     } else {
-      this.productService.createProduct(productData).subscribe(response => {
+      this.productService.createProduct(formData).subscribe(response => {
         Swal.fire({
           icon: 'success',
           title: 'Producto Creado',
@@ -92,8 +100,10 @@ export class ProductAddComponent implements OnInit {
         code: product.code,
         name: product.name,
         description: product.description,
-        price: product.price
+        price: product.price,
+        urlImage: product.urlImage
       });
+      this.currentImageUrl = product.urlImage;
     }, error => {
       console.error(error);
       Swal.fire({
@@ -102,5 +112,9 @@ export class ProductAddComponent implements OnInit {
         text: 'Hubo un problema al cargar el producto.'
       });
     });
+  }
+
+  onFileSelected(event: any): void {
+    this.selectFile = event.target.files[0];
   }
 }
