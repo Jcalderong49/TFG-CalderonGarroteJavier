@@ -9,9 +9,10 @@ import { RouterModule } from "@angular/router";
 import { HomeComponent } from './Componentes/home/home.component'; // Importa HomeComponent
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ProductAddComponent } from './Componentes/product-add/product-add.component';
-import { CategoryListComponent } from './Componentes/category-list/category-list.component';
-import { CategoryAddComponent } from './Componentes/category-add/category-add.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { CategoryAddComponent } from './Componentes/Categorias/category-add/category-add.component';
+import { CategoryListComponent } from './Componentes/Categorias/category-list/category-list.component';
+import { ItemCartComponent } from './Componentes/Carrito/item-cart/item-cart.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     ProductListComponent,
     ProductAddComponent,
     CategoryListComponent,
-    CategoryAddComponent,
+    ItemCartComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,10 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     CommonModule,
     FormsModule,
     RouterModule,ReactiveFormsModule,
+    CategoryAddComponent,
+
     BrowserAnimationsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
