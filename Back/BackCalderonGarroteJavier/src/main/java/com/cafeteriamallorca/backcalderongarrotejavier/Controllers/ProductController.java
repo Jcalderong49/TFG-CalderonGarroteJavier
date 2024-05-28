@@ -12,14 +12,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/v1/admin/products")
 @Slf4j
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200") // Allow requests from your Angular app
 public class ProductController {
 
     private final ProductService productService;
 
     @PostMapping
     public ResponseEntity<Product> save(@RequestBody Product product){
-        log.info("NOmbre producto: {}", product.getName());
-        return  new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
+        log.info("Nombre producto: {}", product.getName());
+        return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -30,6 +31,17 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<Product> findById(@PathVariable Integer id){
         return ResponseEntity.ok(productService.findById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> update(@PathVariable Integer id, @RequestBody Product product){
+        Product existingProduct = productService.findById(id);
+        if (existingProduct != null) {
+            product.setId(id); // Ensure the ID is set to update the correct product
+            return ResponseEntity.ok(productService.save(product));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
