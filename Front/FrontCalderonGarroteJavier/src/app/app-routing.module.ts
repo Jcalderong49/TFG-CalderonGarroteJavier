@@ -5,6 +5,8 @@ import { ProductListComponent } from './Componentes/product-list/product-list.co
 import {ProductAddComponent} from "./Componentes/product-add/product-add.component";
 import {CategoryListComponent} from "./Componentes/Categorias/category-list/category-list.component";
 import {CategoryAddComponent} from "./Componentes/Categorias/category-add/category-add.component";
+import {DetailProductComponent} from "./Componentes/Carrito/detail-product/detail-product.component";
+import {OrderComponent} from "./Componentes/Carrito/order/order.component";
 
 // Declarar las rutas fuera del decorador @NgModule
 const routes: Routes = [
@@ -18,6 +20,10 @@ const routes: Routes = [
   { path: 'admin/category', component: CategoryListComponent },
   { path: 'admin/category/addcategory', component: CategoryAddComponent },
   { path: 'admin/category/addcategory/:id', component: CategoryAddComponent },
+
+  { path: 'cart/detailproduct/:id', component: DetailProductComponent },
+  { path: 'cart/order', component: OrderComponent },
+
 
 
 

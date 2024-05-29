@@ -13,6 +13,10 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { CategoryAddComponent } from './Componentes/Categorias/category-add/category-add.component';
 import { CategoryListComponent } from './Componentes/Categorias/category-list/category-list.component';
 import { ItemCartComponent } from './Componentes/Carrito/item-cart/item-cart.component';
+import { DetailProductComponent } from './Componentes/Carrito/detail-product/detail-product.component';
+import { HeaderAdminComponent } from './Componentes/Navbar/header-admin/header-admin.component';
+import { HeaderUsersComponent } from './Componentes/Navbar/header-users/header-users.component';
+import { OrderComponent } from './Componentes/Carrito/order/order.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +26,10 @@ import { ItemCartComponent } from './Componentes/Carrito/item-cart/item-cart.com
     ProductAddComponent,
     CategoryListComponent,
     ItemCartComponent,
+    DetailProductComponent,
+    HeaderAdminComponent,
+    HeaderUsersComponent,
+    OrderComponent,
 
   ],
   imports: [
