@@ -1,14 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {ItemCart} from "../../../Clases/item-cart";
-import {CartService} from "../../../Servicios/cart-service.service";
-
-class UserService {
-}
+import { Component, OnInit } from '@angular/core';
+import { ItemCart } from "../../../Clases/item-cart";
+import { CartService } from "../../../Servicios/cart-service.service";
+import {UserService} from "../../../Servicios/user.service";
+import {OrderProduct} from "../../../Clases/order-product";
+import {OrderState} from "../../../Clases/order-state";
+import {Order} from "../../../Clases/order";
+import {OrderService} from "../../../Servicios/order.service";
 
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
-  styleUrl: './order.component.css'
+  styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
 
@@ -24,7 +26,6 @@ export class OrderComponent implements OnInit {
   constructor(private cartService:CartService,
               private userService:UserService,
               private orderService:OrderService,
-              private sessionStorage:SessionStorageService
   ){}
 
 
@@ -32,12 +33,8 @@ export class OrderComponent implements OnInit {
     console.log('ngOnInit');
     this.items = this.cartService.convertToListFromMap();
     this.totalCart = this.cartService.totalCart();
-    this.userId = this.sessionStorage.getItem('token').id;
     this.getUserById(this.userId);
-    setTimeout(
-      ()=>{
-        this.sessionStorage.removeItem('token');
-      }, 600000);
+
   }
 
   generateOrder(){
@@ -53,22 +50,9 @@ export class OrderComponent implements OnInit {
     this.orderService.createOrder(order).subscribe(
       data => {
         console.log('Order creada con id: '+ data.id);
-        this.sessionStorage.setItem('order',data);
       }
-    );
 
-    //redireccion y pago con paypal
-    let urlPayment;
-    let dataPayment = new DataPayment ('PAYPAL', this.totalCart.toString(), 'USD', 'COMPRA');
 
-    console.log('Data Payment:', dataPayment);
-
-    this.paymentService.getUrlPaypalPayment(dataPayment).subscribe(
-      data => {
-        urlPayment = data.url;
-        console.log('Respuesta exitosa...');
-        window.location.href = urlPayment;
-      }
     );
 
 
