@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../Servicios/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../../../Servicios/cart-service.service';
-import { ItemCart } from "../../../Clases/item-cart";
+import { ItemCart } from '../../../Clases/item-cart';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-detail-product',
@@ -21,7 +22,8 @@ export class DetailProductComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private activatedRoute: ActivatedRoute,
-    private cartService: CartService
+    private cartService: CartService,
+    private router: Router // Asegúrate de inyectar el router aquí
   ) {}
 
   ngOnInit(): void {
@@ -29,36 +31,35 @@ export class DetailProductComponent implements OnInit {
   }
 
   getProductById() {
-    this.activatedRoute.params.subscribe(
-      p => {
-        let id = p['id'];
-        if (id) {
-          this.productService.getProductById(id).subscribe(
-            data => {
-              this.id = data.id;
-              this.name = data.name;
-              this.description = data.description;
-              this.urlImage = data.urlImage;
-              this.price = data.price;
-            }
-          );
-        }
+    this.activatedRoute.params.subscribe(params => {
+      const id = params['id'];
+      if (id) {
+        this.productService.getProductById(id).subscribe(
+          data => {
+            this.id = data.id;
+            this.name = data.name;
+            this.description = data.description;
+            this.urlImage = data.urlImage;
+            this.price = data.price;
+          },
+          error => {
+            console.error('Error al obtener el producto:', error);
+          }
+        );
       }
-    );
+    });
   }
 
-  addCart(id: number) {
-    console.log('id product: ', id);
-    console.log('name product: ', this.name);
-    console.log('price product: ', this.price);
-    console.log('quantity product: ', this.quantity);
+  addCart() {
+    console.log('id product:', this.id);
+    console.log('name product:', this.name);
+    console.log('price product:', this.price);
+    console.log('quantity product:', this.quantity);
 
-    let item = new ItemCart(id, this.name, this.quantity, this.price);
-
+    const item = new ItemCart(this.id, this.name, this.quantity, this.price);
     this.cartService.addItemCart(item);
 
-    console.log("Total carrito: ");
-    console.log(this.cartService.totalCart());
+    console.log('Total carrito:', this.cartService.totalCart());
 
     Swal.fire({
       title: 'Success',
@@ -67,14 +68,12 @@ export class DetailProductComponent implements OnInit {
       confirmButtonText: 'Seguir comprando',
       showCancelButton: true,
       cancelButtonText: 'Ver carrito'
-    }).then((result) => {
+    }).then(result => {
       if (result.isConfirmed) {
-        // Logic for "Continue Shopping"
         console.log('User chose to continue shopping');
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        // Logic for "View Cart"
+        this.router.navigate(['/cart/order']); // Redirigir a la página del carrito
         console.log('User chose to view cart');
-        // You can navigate to the cart page or perform any other action here
       }
     });
   }
