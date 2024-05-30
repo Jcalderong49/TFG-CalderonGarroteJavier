@@ -18,42 +18,37 @@ public class ProductService {
     }
 
     public Product save(Product product, MultipartFile multipartFile) throws IOException {
-        if (product.getId() != 0) { // cuando es un producto modificado
-            if (multipartFile == null) {
-                // No se hace nada con urlImage porque es la existente
-            } else {
-                if (product.getUrlImage() != null) {
-                    String nameFile = product.getUrlImage().substring(29);
-                    log.info("este es el nombre de la imagen: {}", nameFile);
-                    if (!nameFile.equals("default.jpg")) {
-                        uploadFile.delete(nameFile);
-                    }
+        if(product.getId()!=0){//cuando es un producto modificado
+            if(multipartFile==null){
+                product.setUrlImage(product.getUrlImage());
+            }else{
+                String nameFile = product.getUrlImage().substring(29);
+                log.info("este es el nombre de la imagen: {}", nameFile);
+                if (!nameFile.equals("default.jpg")){
+                    uploadFile.delete(nameFile);
                 }
                 product.setUrlImage(uploadFile.upload(multipartFile));
             }
-        } else {
+        }else{
             product.setUrlImage(uploadFile.upload(multipartFile));
         }
 
         return this.iProductRepository.save(product);
     }
 
-    public Iterable<Product> findAll() {
+    public Iterable<Product> findAll(){
         return this.iProductRepository.findAll();
     }
 
-    public Product findById(Integer id) {
+    public Product findById(Integer id){
         return this.iProductRepository.findById(id);
     }
-
-    public void deleteById(Integer id) {
+    public void deleteById(Integer id){
         Product product = findById(id);
-        if (product != null && product.getUrlImage() != null) {
-            String nameFile = product.getUrlImage().substring(29);
-            log.info("este es el nombre de la imagen: {}", nameFile);
-            if (!nameFile.equals("default.jpg")) {
-                uploadFile.delete(nameFile);
-            }
+        String nameFile = product.getUrlImage().substring(29);
+        log.info("este es el nombre de la imagen: {}", nameFile);
+        if (!nameFile.equals("default.jpg")){
+            uploadFile.delete(nameFile);
         }
         this.iProductRepository.deleteById(id);
     }

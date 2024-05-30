@@ -10,7 +10,6 @@ import java.util.List;
 @Data
 public class Order {
     private Integer id;
-
     private LocalDateTime dateCreated;
     private List<OrderProduct> orderProducts;
     private OrderState orderState;
@@ -19,7 +18,6 @@ public class Order {
     public Order() {
         orderProducts = new ArrayList<>();
     }
-
     public BigDecimal getTotalOrderPrice(){
         return this.orderProducts.stream().map( ordenProduct -> ordenProduct.getTotalItem() ).reduce(BigDecimal.ZERO,BigDecimal::add);
     }
