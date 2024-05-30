@@ -16,11 +16,11 @@ import org.springframework.web.servlet.view.RedirectView;
 @AllArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 @Slf4j
-@RequestMapping("/api/v1/payments")
+@RequestMapping("api/v1/payments")
 public class PaypalController {
     private final PaypalService paypalService;
-    private final String SUCCESS_URL = "http://localhost:8086/api/v1/payments/success";
-    private  final String CANCEL_URL = "http://localhost:8086/api/v1/payments/cancel";
+    private final String SUCCESS_URL = "http://localhost:8085/api/v1/payments/success";
+    private  final String CANCEL_URL = "http://localhost:8085/api/v1/payments/cancel";
 
     @PostMapping
     public URLPaypalResponse createPayment(@RequestBody DataPayment dataPayment){

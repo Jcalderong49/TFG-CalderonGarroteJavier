@@ -7,6 +7,7 @@ import {CategoryListComponent} from "./Componentes/Categorias/category-list/cate
 import {CategoryAddComponent} from "./Componentes/Categorias/category-add/category-add.component";
 import {DetailProductComponent} from "./Componentes/Carrito/detail-product/detail-product.component";
 import {OrderComponent} from "./Componentes/Carrito/order/order.component";
+import {PaymentSuccessComponent} from "./Componentes/payment-success/payment-success.component";
 
 // Declarar las rutas fuera del decorador @NgModule
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
 
   { path: 'cart/detailproduct/:id', component: DetailProductComponent },
   { path: 'cart/order', component: OrderComponent },
+  { path: 'payment/success', component: PaymentSuccessComponent },
 
 
 

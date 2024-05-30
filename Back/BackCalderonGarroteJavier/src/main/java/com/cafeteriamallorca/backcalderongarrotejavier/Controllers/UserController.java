@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/users")
 @CrossOrigin(origins = "http://localhost:4200")
 
-//http://localhost:8085/api/v1/users
+//http://localhost:8086/api/v1/users
 public class UserController {
     private final UserService userService;
 
@@ -22,7 +22,7 @@ public class UserController {
         return userService.save(user);
     }
 
-    //http://localhost:8085/api/v1/users/4
+    //http://localhost:8086/api/v1/users/4
     @GetMapping("/{id}")
     public User findById(@PathVariable Integer id){
         return userService.findById(id);
