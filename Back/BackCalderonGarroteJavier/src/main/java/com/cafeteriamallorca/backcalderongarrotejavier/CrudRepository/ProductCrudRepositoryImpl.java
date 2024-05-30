@@ -1,6 +1,5 @@
 package com.cafeteriamallorca.backcalderongarrotejavier.CrudRepository;
 
-import com.cafeteriamallorca.backcalderongarrotejavier.CrudRepository.IProductCrudRepository;
 import com.cafeteriamallorca.backcalderongarrotejavier.Mapping.ProductMapper;
 import com.cafeteriamallorca.backcalderongarrotejavier.Model.Product;
 import com.cafeteriamallorca.backcalderongarrotejavier.Repository.IProductRepository;
