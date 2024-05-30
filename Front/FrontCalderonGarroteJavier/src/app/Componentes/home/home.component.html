@@ -1,8 +1,13 @@
-
+<div class="row">
+  <div class="col-md-12 text-right mb-3">
+    <a [routerLink]="['/cart/order']" class="btn btn-primary">Ir a Order</a>
+  </div>
+</div>
 <div class="main-content">
   <div class="section-content section-content-p30">
     <div class="container-fluid">
       <div class="row">
+
         <div *ngFor = "let p of products" class="col-md-3">
 
           <div class="product-box">
