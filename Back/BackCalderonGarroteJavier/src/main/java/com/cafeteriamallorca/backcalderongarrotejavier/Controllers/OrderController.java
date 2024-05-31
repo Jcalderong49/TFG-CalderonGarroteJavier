@@ -1,16 +1,15 @@
 package com.cafeteriamallorca.backcalderongarrotejavier.Controllers;
 
-import com.cafeteriamallorca.backcalderongarrotejavier.Model.Order;
-import com.cafeteriamallorca.backcalderongarrotejavier.Model.OrderState;
 import com.cafeteriamallorca.backcalderongarrotejavier.Services.OrderService;
+import com.cafeteriamallorca.backcalderongarrotejavier.model.Order;
+import com.cafeteriamallorca.backcalderongarrotejavier.model.OrderState;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1/orders")
+@RequestMapping("/api/v1/orders")
 @CrossOrigin(origins = "http://localhost:4200")
-
 @Slf4j
 public class OrderController {
     private final OrderService orderService;
@@ -21,6 +20,7 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<Order> save(@RequestBody Order order){
+        System.out.println(order.getOrderState());
         if (order.getOrderState().toString().equals(OrderState.CANCELLED.toString()) ){
             order.setOrderState(OrderState.CANCELLED);
         }else{
@@ -50,6 +50,5 @@ public class OrderController {
     public ResponseEntity<Iterable<Order>> findByUserId(@PathVariable("id") Integer userId){
         return ResponseEntity.ok(orderService.findByUserId(userId));
     }
-
 
 }

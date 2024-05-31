@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import static com.cafeteriamallorca.backcalderongarrotejavier.jwt.Constants.*;
 
+
 public class JWTValidate {
     /// valida que el token venga en la peticion
     public static boolean tokenExists(HttpServletRequest request, HttpServletResponse response){

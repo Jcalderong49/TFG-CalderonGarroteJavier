@@ -1,7 +1,6 @@
-package com.cafeteriamallorca.backcalderongarrotejavier.Entity;
+package com.cafeteriamallorca.backcalderongarrotejavier.entity;
 
-
-import com.cafeteriamallorca.backcalderongarrotejavier.Model.UserType;
+import com.cafeteriamallorca.backcalderongarrotejavier.model.UserType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

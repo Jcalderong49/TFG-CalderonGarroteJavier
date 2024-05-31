@@ -9,60 +9,61 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-@Service  // Indica que esta clase es un servicio de Spring, gestionado por el contenedor de Spring
+@Service
 public class PaypalService {
-    private final APIContext apiContext;  // APIContext es usado para configurar la conexión con PayPal
+    private final APIContext apiContext;
 
     public PaypalService(APIContext apiContext) {
-        this.apiContext = apiContext;  // El APIContext es inyectado a través del constructor
+        this.apiContext = apiContext;
     }
 
     public Payment createPayment(
-            Double total,  // Total del pago
-            String currency,  // Moneda en la que se realiza el pago
-            String method,  // Método de pago, normalmente "paypal"
-            String intent,  // Intención del pago, puede ser "sale", "authorize", etc.
-            String description,  // Descripción de la transacción
-            String cancelUrl,  // URL de redirección si el usuario cancela el pago
-            String successUrl  // URL de redirección si el pago es exitoso
+            Double total,
+            String currency,
+            String method,
+            String intent,
+            String description,
+            String cancelUrl,
+            String successUrl
     ) throws PayPalRESTException {
         Amount amount = new Amount();
-        amount.setCurrency(currency);  // Se establece la moneda
-        amount.setTotal(String.format(Locale.forLanguageTag(currency), "%.2f", total));  // Se establece el total formateado
+        amount.setCurrency(currency);
+        amount.setTotal(String.format(Locale.forLanguageTag(currency), "%.2f", total));
 
         Transaction transaction = new Transaction();
-        transaction.setDescription(description);  // Se establece la descripción de la transacción
-        transaction.setAmount(amount);  // Se añade el monto a la transacción
+        transaction.setDescription(description);
+        transaction.setAmount(amount);
 
         List<Transaction> transactions = new ArrayList<>();
-        transactions.add(transaction);  // Se añade la transacción a la lista de transacciones
+        transactions.add(transaction);
 
         Payer payer = new Payer();
-        payer.setPaymentMethod(method);  // Se establece el método de pago
+        payer.setPaymentMethod(method);
 
         Payment payment = new Payment();
-        payment.setIntent(intent);  // Se establece la intención del pago
-        payment.setPayer(payer);  // Se añade el pagador
-        payment.setTransactions(transactions);  // Se añade la lista de transacciones
+        payment.setIntent(intent);
+        payment.setPayer(payer);
+        payment.setTransactions(transactions);
 
         RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setReturnUrl(successUrl);  // Se establece la URL de redirección en caso de éxito
-        redirectUrls.setCancelUrl(cancelUrl);  // Se establece la URL de redirección en caso de cancelación
-        payment.setRedirectUrls(redirectUrls);  // Se añaden las URLs de redirección al pago
+        redirectUrls.setReturnUrl(successUrl);
+        redirectUrls.setCancelUrl(cancelUrl);
+        payment.setRedirectUrls(redirectUrls);
 
-        return payment.create(apiContext);  // Se crea el pago usando el APIContext
+        return payment.create(apiContext);
     }
 
-    public Payment executePayment(
-            String paymentId,  // ID del pago a ejecutar
-            String payerId  // ID del pagador
+    public  Payment executePayment(
+            String paymentId,
+            String payerId
     ) throws PayPalRESTException {
         Payment payment = new Payment();
-        payment.setId(paymentId);  // Se establece el ID del pago
+        payment.setId(paymentId);
 
         PaymentExecution paymentExecution = new PaymentExecution();
-        paymentExecution.setPayerId(payerId);  // Se establece el ID del pagador
+        paymentExecution.setPayerId(payerId);
 
-        return payment.execute(apiContext, paymentExecution);  // Se ejecuta el pago usando el APIContext y los detalles de la ejecución
+        return  payment.execute(apiContext,paymentExecution);
+
     }
 }

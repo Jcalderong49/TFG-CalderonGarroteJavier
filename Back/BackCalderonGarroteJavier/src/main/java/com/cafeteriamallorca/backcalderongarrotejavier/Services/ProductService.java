@@ -1,11 +1,12 @@
 package com.cafeteriamallorca.backcalderongarrotejavier.Services;
 
-import com.cafeteriamallorca.backcalderongarrotejavier.Model.Product;
 import com.cafeteriamallorca.backcalderongarrotejavier.Repository.IProductRepository;
+import com.cafeteriamallorca.backcalderongarrotejavier.model.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+
 
 @Slf4j
 public class ProductService {

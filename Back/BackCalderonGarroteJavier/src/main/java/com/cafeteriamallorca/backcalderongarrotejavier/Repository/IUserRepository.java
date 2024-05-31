@@ -1,5 +1,7 @@
 package com.cafeteriamallorca.backcalderongarrotejavier.Repository;
-import com.cafeteriamallorca.backcalderongarrotejavier.Model.User;
+
+
+import com.cafeteriamallorca.backcalderongarrotejavier.model.User;
 
 public interface IUserRepository {
     User save(User user);

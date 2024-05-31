@@ -1,8 +1,8 @@
 package com.cafeteriamallorca.backcalderongarrotejavier.CrudRepository;
 
-import com.cafeteriamallorca.backcalderongarrotejavier.Mapping.UserMapper;
-import com.cafeteriamallorca.backcalderongarrotejavier.Model.User;
 import com.cafeteriamallorca.backcalderongarrotejavier.Repository.IUserRepository;
+import com.cafeteriamallorca.backcalderongarrotejavier.mapper.UserMapper;
+import com.cafeteriamallorca.backcalderongarrotejavier.model.User;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -22,7 +22,9 @@ public class UserCrudRepositoryImpl implements IUserRepository {
 
     @Override
     public User findByEmail(String email) {
-        return null;
+        return userMapper.toUser(iUserCrudRepository.findByEmail(email).orElseThrow(
+                ()-> new RuntimeException ("User with email: "+email+ " not found")
+        )   );
     }
 
     @Override

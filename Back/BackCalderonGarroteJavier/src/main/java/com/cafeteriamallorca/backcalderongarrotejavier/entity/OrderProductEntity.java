@@ -1,4 +1,4 @@
-package com.cafeteriamallorca.backcalderongarrotejavier.Entity;
+package com.cafeteriamallorca.backcalderongarrotejavier.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

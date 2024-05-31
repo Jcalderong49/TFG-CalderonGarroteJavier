@@ -2,7 +2,7 @@ package com.cafeteriamallorca.backcalderongarrotejavier.Services;
 
 
 import com.cafeteriamallorca.backcalderongarrotejavier.Repository.ICategoryRepository;
-import com.cafeteriamallorca.backcalderongarrotejavier.Model.Category;
+import com.cafeteriamallorca.backcalderongarrotejavier.model.Category;
 
 public class CategoryService {
     private final ICategoryRepository iCategoryRepository;
