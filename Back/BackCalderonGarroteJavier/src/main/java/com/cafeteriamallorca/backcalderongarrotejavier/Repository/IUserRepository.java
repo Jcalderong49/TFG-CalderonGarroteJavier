@@ -1,5 +1,4 @@
 package com.cafeteriamallorca.backcalderongarrotejavier.Repository;
-
 import com.cafeteriamallorca.backcalderongarrotejavier.Model.User;
 
 public interface IUserRepository {
