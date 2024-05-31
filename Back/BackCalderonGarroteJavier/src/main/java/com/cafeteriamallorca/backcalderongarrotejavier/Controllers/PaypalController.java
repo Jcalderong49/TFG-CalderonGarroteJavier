@@ -1,8 +1,8 @@
 package com.cafeteriamallorca.backcalderongarrotejavier.Controllers;
 
-import com.cafeteriamallorca.backcalderongarrotejavier.Model.DataPayment;
-import com.cafeteriamallorca.backcalderongarrotejavier.Model.URLPaypalResponse;
 import com.cafeteriamallorca.backcalderongarrotejavier.PaypalService.PaypalService;
+import com.cafeteriamallorca.backcalderongarrotejavier.model.DataPayment;
+import com.cafeteriamallorca.backcalderongarrotejavier.model.URLPaypalResponse;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
@@ -15,7 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @AllArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 @Slf4j
-@RequestMapping("api/v1/payments")
+@RequestMapping("/api/v1/payments")
 public class PaypalController {
     private final PaypalService paypalService;
     private final String SUCCESS_URL = "http://localhost:8085/api/v1/payments/success";

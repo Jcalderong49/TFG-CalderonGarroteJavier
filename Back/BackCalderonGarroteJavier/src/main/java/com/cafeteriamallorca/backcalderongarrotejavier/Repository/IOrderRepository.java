@@ -1,6 +1,7 @@
 package com.cafeteriamallorca.backcalderongarrotejavier.Repository;
 
-import com.cafeteriamallorca.backcalderongarrotejavier.Model.Order;
+
+import com.cafeteriamallorca.backcalderongarrotejavier.model.Order;
 
 public interface IOrderRepository {
     Order save (Order order);

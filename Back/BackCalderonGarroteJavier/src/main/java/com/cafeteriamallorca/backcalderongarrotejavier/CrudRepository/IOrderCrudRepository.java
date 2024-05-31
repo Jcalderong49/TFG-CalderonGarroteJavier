@@ -1,8 +1,8 @@
 package com.cafeteriamallorca.backcalderongarrotejavier.CrudRepository;
 
-import com.cafeteriamallorca.backcalderongarrotejavier.Entity.OrderEntity;
-import com.cafeteriamallorca.backcalderongarrotejavier.Entity.UserEntity;
-import com.cafeteriamallorca.backcalderongarrotejavier.Model.OrderState;
+import com.cafeteriamallorca.backcalderongarrotejavier.entity.OrderEntity;
+import com.cafeteriamallorca.backcalderongarrotejavier.entity.UserEntity;
+import com.cafeteriamallorca.backcalderongarrotejavier.model.OrderState;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

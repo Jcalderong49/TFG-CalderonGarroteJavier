@@ -1,7 +1,7 @@
-package com.cafeteriamallorca.backcalderongarrotejavier.Mapping;
+package com.cafeteriamallorca.backcalderongarrotejavier.mapper;
 
-import com.cafeteriamallorca.backcalderongarrotejavier.Entity.ProductEntity;
-import com.cafeteriamallorca.backcalderongarrotejavier.Model.Product;
+import com.cafeteriamallorca.backcalderongarrotejavier.entity.ProductEntity;
+import com.cafeteriamallorca.backcalderongarrotejavier.model.Product;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

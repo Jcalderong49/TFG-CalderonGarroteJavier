@@ -16,8 +16,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-import static com.cafeteriamallorca.backcalderongarrotejavier.jwt.JWTValidate.*;
-
 
 @Component
 @Slf4j
@@ -31,10 +29,10 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try{
-            if(tokenExists(request, response)){
-                Claims claims = JWTValid(request);
+            if(JWTValidate.tokenExists(request, response)){
+                Claims claims = JWTValidate.JWTValid(request);
                 if (claims.get("authorities") != null){
-                    setAuthetication(claims, customUserDetailService);
+                    JWTValidate.setAuthetication(claims, customUserDetailService);
                 }else
                 {
                     SecurityContextHolder.clearContext();

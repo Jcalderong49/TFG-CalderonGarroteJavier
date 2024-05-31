@@ -1,8 +1,8 @@
 package com.cafeteriamallorca.backcalderongarrotejavier.CrudRepository;
 
-import com.cafeteriamallorca.backcalderongarrotejavier.Mapping.ProductMapper;
-import com.cafeteriamallorca.backcalderongarrotejavier.Model.Product;
 import com.cafeteriamallorca.backcalderongarrotejavier.Repository.IProductRepository;
+import com.cafeteriamallorca.backcalderongarrotejavier.mapper.ProductMapper;
+import com.cafeteriamallorca.backcalderongarrotejavier.model.Product;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

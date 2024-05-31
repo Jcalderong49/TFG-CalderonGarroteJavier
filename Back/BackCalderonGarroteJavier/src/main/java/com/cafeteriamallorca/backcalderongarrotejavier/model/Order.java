@@ -1,4 +1,4 @@
-package com.cafeteriamallorca.backcalderongarrotejavier.Model;
+package com.cafeteriamallorca.backcalderongarrotejavier.model;
 
 import lombok.Data;
 

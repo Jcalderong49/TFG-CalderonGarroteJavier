@@ -1,7 +1,7 @@
 package com.cafeteriamallorca.backcalderongarrotejavier.PaypalService;
 
-import com.cafeteriamallorca.backcalderongarrotejavier.Model.User;
 import com.cafeteriamallorca.backcalderongarrotejavier.Services.UserService;
+import com.cafeteriamallorca.backcalderongarrotejavier.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,8 +1,8 @@
 package com.cafeteriamallorca.backcalderongarrotejavier.CrudRepository;
 
-import com.cafeteriamallorca.backcalderongarrotejavier.Mapping.CategoryMapper;
-import com.cafeteriamallorca.backcalderongarrotejavier.Model.Category;
 import com.cafeteriamallorca.backcalderongarrotejavier.Repository.ICategoryRepository;
+import com.cafeteriamallorca.backcalderongarrotejavier.mapper.CategoryMapper;
+import com.cafeteriamallorca.backcalderongarrotejavier.model.Category;
 import org.springframework.stereotype.Repository;
 
 @Repository

@@ -1,7 +1,7 @@
 package com.cafeteriamallorca.backcalderongarrotejavier.Controllers;
 
-import com.cafeteriamallorca.backcalderongarrotejavier.Model.User;
 import com.cafeteriamallorca.backcalderongarrotejavier.Services.RegistrationService;
+import com.cafeteriamallorca.backcalderongarrotejavier.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

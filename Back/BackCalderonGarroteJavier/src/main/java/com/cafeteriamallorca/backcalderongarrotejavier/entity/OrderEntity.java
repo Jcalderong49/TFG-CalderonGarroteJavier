@@ -1,6 +1,6 @@
-package com.cafeteriamallorca.backcalderongarrotejavier.Entity;
+package com.cafeteriamallorca.backcalderongarrotejavier.entity;
 
-import com.cafeteriamallorca.backcalderongarrotejavier.Model.OrderState;
+import com.cafeteriamallorca.backcalderongarrotejavier.model.OrderState;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;

@@ -1,6 +1,5 @@
 package com.cafeteriamallorca.backcalderongarrotejavier.jwt;
 
-
 import io.jsonwebtoken.security.Keys;
 
 import java.nio.charset.StandardCharsets;

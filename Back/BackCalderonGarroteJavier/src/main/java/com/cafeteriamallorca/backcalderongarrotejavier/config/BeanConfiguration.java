@@ -1,5 +1,6 @@
 package com.cafeteriamallorca.backcalderongarrotejavier.config;
 
+
 import com.cafeteriamallorca.backcalderongarrotejavier.Repository.ICategoryRepository;
 import com.cafeteriamallorca.backcalderongarrotejavier.Repository.IOrderRepository;
 import com.cafeteriamallorca.backcalderongarrotejavier.Repository.IProductRepository;
@@ -39,4 +40,3 @@ public class BeanConfiguration {
     }
 
 }
-

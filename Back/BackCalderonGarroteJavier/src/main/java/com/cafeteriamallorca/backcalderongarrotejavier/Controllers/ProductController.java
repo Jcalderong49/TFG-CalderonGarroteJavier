@@ -1,7 +1,7 @@
 package com.cafeteriamallorca.backcalderongarrotejavier.Controllers;
 
-import com.cafeteriamallorca.backcalderongarrotejavier.Model.Product;
 import com.cafeteriamallorca.backcalderongarrotejavier.Services.ProductService;
+import com.cafeteriamallorca.backcalderongarrotejavier.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,16 +22,16 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public ResponseEntity<Product> save(@RequestParam("id") Integer id,
-                                        @RequestParam("code") String code,
-                                        @RequestParam("name") String name,
-                                        @RequestParam("description") String description,
-                                        @RequestParam("price") BigDecimal price,
-                                        @RequestParam(value = "urlImage", required = false) String urlImage,
-                                        @RequestParam("userId") Integer userId,
-                                        @RequestParam("categoryId") Integer categoryId,
-                                        @RequestParam(value = "image", required = false) MultipartFile multipartFile
-    ) throws IOException {
+        public ResponseEntity<Product> save(@RequestParam("id") Integer id,
+                                            @RequestParam("code") String code,
+                                            @RequestParam("name") String name,
+                                            @RequestParam("description") String  description,
+                                            @RequestParam("price")BigDecimal price,
+                                            @RequestParam("urlImage")String urlImage,
+                                            @RequestParam("userId")Integer userId,
+                                            @RequestParam("categoryId")Integer categoryId,
+                                            @RequestParam(value = "image", required = false)MultipartFile multipartFile
+                                        ) throws IOException {
         Product product = new Product();
         product.setId(id);
         product.setCode(code);
@@ -40,54 +40,25 @@ public class ProductController {
         product.setPrice(price);
         product.setCategoryId(categoryId);
         product.setUserId(userId);
+        product.setUrlImage(urlImage);
 
-        if (urlImage != null && !urlImage.isEmpty()) {
-            product.setUrlImage(urlImage);
-        }
 
-        log.info("Nombre producto: {}", product.getName());
-        return new ResponseEntity<>(productService.save(product, multipartFile), HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Integer id,
-                                                 @RequestParam("code") String code,
-                                                 @RequestParam("name") String name,
-                                                 @RequestParam("description") String description,
-                                                 @RequestParam("price") BigDecimal price,
-                                                 @RequestParam(value = "urlImage", required = false) String urlImage,
-                                                 @RequestParam("userId") Integer userId,
-                                                 @RequestParam("categoryId") Integer categoryId,
-                                                 @RequestParam(value = "image", required = false) MultipartFile multipartFile
-    ) throws IOException {
-        Product product = productService.findById(id);
-        product.setCode(code);
-        product.setName(name);
-        product.setDescription(description);
-        product.setPrice(price);
-        product.setCategoryId(categoryId);
-        product.setUserId(userId);
-
-        if (urlImage != null && !urlImage.isEmpty()) {
-            product.setUrlImage(urlImage);
-        }
-
-        log.info("Nombre producto: {}", product.getName());
-        return new ResponseEntity<>(productService.save(product, multipartFile), HttpStatus.OK);
+        log.info("NOmbre producto: {}", product.getName());
+        return  new ResponseEntity<>(productService.save(product, multipartFile), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<Product>> findAll() {
+    public ResponseEntity<Iterable<Product>> findAll(){
         return ResponseEntity.ok(productService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Integer id) {
+    public ResponseEntity<Product> findById(@PathVariable Integer id){
         return ResponseEntity.ok(productService.findById(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteById(@PathVariable Integer id) {
+    public ResponseEntity<HttpStatus> deleteById(@PathVariable Integer id){
         productService.deleteById(id);
         return ResponseEntity.ok().build();
     }
