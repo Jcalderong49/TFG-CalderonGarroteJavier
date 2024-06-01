@@ -35,7 +35,8 @@ const routes: Routes = [
   { path: 'payment/success', component: PaymentSuccessComponent },
   { path: 'user/register', component: RegistrationComponent },
   { path: 'user/login', component: LoginComponent },
-  { path: 'logout', component: LogoutComponent }
+  { path: 'logout', component: LogoutComponent },
+  {path:'user/registro',component:RegistrationComponent}
 ];
 
 @NgModule({

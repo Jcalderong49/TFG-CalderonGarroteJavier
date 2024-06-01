@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
-
 import Swal from 'sweetalert2';
-import {Product} from "../../Clases/product";
-import {ProductService} from "../../services/product.service";
+import { Product } from "../../Clases/product";
+import { ProductService } from "../../services/product.service";
 
 @Component({
   selector: 'app-product-list',
@@ -12,25 +10,25 @@ import {ProductService} from "../../services/product.service";
 })
 export class ProductListComponent implements OnInit {
 
-  products : Product[] = [];
+  products: Product[] = [];
 
-  constructor(private productService:ProductService ){}
+  constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
     this.listProducts();
   }
 
-  listProducts(){
+  listProducts() {
     console.log('listProducts');
     this.productService.getProducts().subscribe(
-      data => {this.products = data
+      data => {
+        this.products = data;
         console.log(data);
       }
     );
   }
 
-  deleteProductById(id:number){
-
+  deleteProductById(id: number) {
     Swal.fire({
       title: 'Está seguro que quiere eliminar el registro?',
       text: "",
@@ -43,18 +41,24 @@ export class ProductListComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.productService.deleteProductById(id).subscribe(
-          ()=> this.listProducts()
+          () => {
+            this.listProducts();
+            Swal.fire(
+              'Productos',
+              'Producto eliminado correctamente.',
+              'success'
+            );
+          },
+          error => {
+            Swal.fire(
+              'Error',
+              'No se pudo eliminar el producto.',
+              'error'
+            );
+            console.error(error);
+          }
         );
-        Swal.fire(
-          'Productos',
-          'Producto eliminado correctamente.',
-          'success'
-        )
       }
-    })
-
-
-
+    });
   }
-
 }
