@@ -1,7 +1,7 @@
+// Clase Order en Java
 package com.cafeteriamallorca.backcalderongarrotejavier.model;
 
 import lombok.Data;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,6 +19,6 @@ public class Order {
         orderProducts = new ArrayList<>();
     }
     public BigDecimal getTotalOrderPrice(){
-        return this.orderProducts.stream().map( ordenProduct -> ordenProduct.getTotalItem() ).reduce(BigDecimal.ZERO,BigDecimal::add);
+        return this.orderProducts.stream().map(OrderProduct::getTotalItem).reduce(BigDecimal.ZERO,BigDecimal::add);
     }
 }

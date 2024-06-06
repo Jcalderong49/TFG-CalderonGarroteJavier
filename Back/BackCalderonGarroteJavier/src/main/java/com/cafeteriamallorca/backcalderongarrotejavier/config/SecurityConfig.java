@@ -1,4 +1,5 @@
 package com.cafeteriamallorca.backcalderongarrotejavier.config;
+
 import com.cafeteriamallorca.backcalderongarrotejavier.jwt.JWTAuthorizationFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -33,32 +34,34 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors(
-                cors -> cors.configurationSource(
-                        request -> {
-                            CorsConfiguration corsConfiguration = new CorsConfiguration();
-                            corsConfiguration.setAllowedOrigins(Arrays.asList("*"));
-                            corsConfiguration.setAllowedMethods(Arrays.asList("*"));
-                            corsConfiguration.setAllowedHeaders(Arrays.asList("*"));
-                            return  corsConfiguration;
-                        }
-                )).
-                csrf( csrf-> csrf.disable()).authorizeHttpRequests(
-                aut -> aut.requestMatchers("/api/v1/admin/categories/**").hasRole("ADMIN")
+                        cors -> cors.configurationSource(
+                                request -> {
+                                    CorsConfiguration corsConfiguration = new CorsConfiguration();
+                                    corsConfiguration.setAllowedOrigins(Arrays.asList("*"));
+                                    corsConfiguration.setAllowedMethods(Arrays.asList("*"));
+                                    corsConfiguration.setAllowedHeaders(Arrays.asList("*"));
+                                    return corsConfiguration;
+                                }
+                        ))
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/v1/admin/categories/**").hasRole("ADMIN")
                         .requestMatchers("/api/v1/admin/products/**").hasRole("ADMIN")
                         .requestMatchers("/api/v1/orders/**").hasRole("USER")
                         .requestMatchers("/api/v1/payments/success").permitAll()
                         .requestMatchers("/api/v1/payments/**").hasRole("USER")
                         .requestMatchers("/images/**").permitAll()
                         .requestMatchers("/api/v1/home/**").permitAll()
-                        .requestMatchers("/api/v1/security/**").permitAll().anyRequest().authenticated()
-        ).addFilterAfter(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class) ;
+                        .requestMatchers("/api/v1/security/**").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .addFilterAfter(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder (){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

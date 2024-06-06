@@ -13,10 +13,9 @@ import java.util.stream.Collectors;
 
 import static com.cafeteriamallorca.backcalderongarrotejavier.jwt.Constants.*;
 
-
 @Service
 public class JWTGenerator {
-    public String getToken(String username){
+    public String getToken(String username) {
         List<GrantedAuthority> authorityList = AuthorityUtils.commaSeparatedStringToAuthorityList(
                 SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().findFirst().toString()
         );
@@ -24,13 +23,12 @@ public class JWTGenerator {
         String token = Jwts.builder()
                 .setId("ecommerce")
                 .setSubject(username)
-                .claim("authorities",authorityList.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()) )
-                .setIssuedAt( new Date(System.currentTimeMillis()))
-                .setExpiration( new Date(System.currentTimeMillis()+TOKEN_EXPIRATION_TIME ))
-                .signWith(getSignedKey(SUPER_SECRET_KEY), SignatureAlgorithm.HS512).compact();
+                .claim("authorities", authorityList.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION_TIME))
+                .signWith(getSignedKey(SUPER_SECRET_KEY), SignatureAlgorithm.HS512)
+                .compact();
 
-
-
-        return "Bearer "+token;
+        return TOKEN_BEARER_PREFIX + token;
     }
 }
