@@ -1,40 +1,22 @@
-<!-- Navigation -->
-<app-header-user></app-header-user>
-
-<!-- Page Content -->
-<div class="container">
+<div class="container px-5 py-24 mx-auto">
   <header class="jumbotron my-4">
-    <h1 class="display-3">Bienvenido a Spring Ecommerce 2024</h1>
+    <h1 class="display-3">Bienvenido a Cafeteria Mallorca</h1>
     <p class="lead">Tu tienda de productos en Línea</p>
   </header>
+  <div class="flex flex-wrap -m-4">
+    <div *ngFor="let p of products" class="lg:w-1/4 md:w-1/2 p-4 w-full">
+      <a class="block relative h-48 rounded overflow-hidden">
+        <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="{{ p.urlImage }}">
+      </a>
+      <div class="mt-4">
+        <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">{{ p.code }}</h3>
+        <h2 class="text-gray-900 title-font text-lg font-medium">{{ p.name }}</h2>
+        <p class="mt-1">{{ p.price }}€</p>
+        <a [routerLink]="['/cart/detailproduct', p.id]" class="primary-btn">Ver producto</a>
 
-  <div class="main-content">
-    <div class="section-content section-content-p30">
-      <div class="container-fluid">
-        <div class="row">
-          <div *ngFor = "let p of products" class="col-md-3">
-
-            <div class="product-box">
-              <img src="{{p.urlImage}}">
-              <h2 class="card-text"> {{p.name}} </h2>
-              <div class="price"> {{p.price}}</div>
-              <div class="product-show">
-                <a [routerLink]="['/cart/detailproduct', p.id]" class="primary-btn">Ver producto</a>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
-
-
 </div>
 
-<!-- Footer -->
-<footer class="py-5 bg-dark">
-  <div class="container">
-    <p class="m-0 text-center text-white">Copyright &copy; Spring eCommerce 2024</p>
-  </div>
-  <!-- /.container -->
-</footer>
+

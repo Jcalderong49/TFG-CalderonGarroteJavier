@@ -1,32 +1,28 @@
-<app-header-admin> </app-header-admin>
-<!-- Page Content Add Categories -->
-<div class="container">
-    <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3">
-        eCommerce <small>Categorías</small>
-    </h1>
+<div class="container mx-auto px-5 py-16">
+  <!-- Page Heading/Breadcrumbs -->
+  <div class="title border-b-2 border-black mx-8 mb-8">
+    <h1 class="text-2xl font-bold text-center">Cafeteria Mallorca <small>Categorías</small></h1>
+  </div>
 
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="">Categorias</a></li>
-        <li class="breadcrumb-item active">Crear Categoría</li>
-    </ol>
+  <ol class="breadcrumb flex justify-center mb-8">
+    <li class="breadcrumb-item"><a routerLink="/admin/category" class="text-blue-600 hover:text-blue-800">Categorías</a></li>
+    <li class="breadcrumb-item active text-gray-500">Crear Categoría</li>
+  </ol>
 
-    <h2>Crear Categoría</h2>
+  <div class="lg:w-1/2 w-full mx-auto">
+    <h2 class="text-xl font-semibold mb-4 text-center">Crear Categoría</h2>
     <form class="form-horizontal">
-        <input type="hidden" [(ngModel)]="id">
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="nombre">Nombre:</label>
-            <div class="col-sm-10">
-                <input [(ngModel)]="name" class="form-control" id="name" name="name"
-                    placeholder="Ingrese el nombre de la categoría" autocomplete="off" minlength="5">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2">
-                <button class="btn btn-success" (click)="addCategory()">
-                    <span class="glyphicon glyphicon-saved"></span> Guardar
-                </button>
-            </div>
-        </div>
+      <input type="hidden" [(ngModel)]="id">
+      <div class="form-group mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="nombre">Nombre:</label>
+        <input [(ngModel)]="name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+               id="name" name="name" placeholder="Ingrese el nombre de la categoría" autocomplete="off" minlength="5">
+      </div>
+      <div class="flex justify-center">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg focus:outline-none focus:shadow-outline">
+          Guardar
+        </button>
+      </div>
     </form>
+  </div>
 </div>
