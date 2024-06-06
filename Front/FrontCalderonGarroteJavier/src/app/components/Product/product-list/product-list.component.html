@@ -1,0 +1,76 @@
+<!-- Page Content List Products-->
+<div class="container mx-auto px-5 py-16">
+  <div class="title text-center mb-8">
+    <h1 class="text-2xl font-bold">Spring eCommerce - Productos</h1>
+    <p class="text-gray-600">Gestiona tus productos con facilidad.</p>
+  </div>
+
+  <ol class="breadcrumb flex justify-center items-center mb-8">
+    <li class="breadcrumb-item">
+      <a routerLink="/" class="flex items-center text-blue-500 hover:text-blue-700">
+        <i class="fas fa-home mr-2"></i> Home
+      </a>
+    </li>
+    <li class="breadcrumb-item active text-gray-500">Ver Productos</li>
+  </ol>
+
+  <div class="flex justify-between items-center mb-8">
+    <a class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" routerLink="/admin/product/addproduct">
+      <i class="fas fa-plus-circle mr-2"></i> Crear Producto
+    </a>
+    <div class="flex items-center relative max-w-sm w-full">
+      <input
+        [(ngModel)]="searchTerm"
+        (input)="onSearchTermChange()"
+        class="px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white w-full pl-8"
+        type="text"
+        placeholder="Buscar productos..."
+      />
+      <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+    </div>
+  </div>
+
+  <div class="w-full overflow-auto shadow rounded-lg border border-gray-200">
+    <table class="table-auto w-full text-center whitespace-no-wrap">
+      <thead class="bg-gradient-to-r from-blue-700 to-blue-500 text-white">
+      <tr>
+        <th class="px-4 py-3">Código</th>
+        <th class="px-4 py-3">Nombre</th>
+        <th class="px-4 py-3">Descripción</th>
+        <th class="px-4 py-3">Precio</th>
+        <th class="px-4 py-3">Editar</th>
+        <th class="px-4 py-3">Eliminar</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let producto of productosPaginaActual" class="hover:bg-gray-100">
+        <td class="px-4 py-3 border-b border-gray-200">{{ producto.code }}</td>
+        <td class="px-4 py-3 border-b border-gray-200">{{ producto.name }}</td>
+        <td class="px-4 py-3 border-b border-gray-200">{{ producto.description }}</td>
+        <td class="px-4 py-3 border-b border-gray-200">{{ producto.price }}</td>
+        <td class="px-4 py-3 border-b border-gray-200">
+          <button class="btn btn-warning bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" [routerLink]="['/admin/product/update', producto.id]">
+            <i class="fas fa-edit mr-2"></i> Editar
+          </button>
+        </td>
+        <td class="px-4 py-3 border-b border-gray-200">
+          <button class="btn btn-danger bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="deleteProductById(producto.id)">
+            <i class="fas fa-trash mr-2"></i> Eliminar
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="text-center mt-5">
+    <button class="btn btn-outline-primary mr-1 custom-hover" [disabled]="paginaActual === 1" (click)="cambiarPagina(paginaActual - 1)">Before</button>
+    <ng-container *ngFor="let pagina of paginasTotales">
+      <button *ngIf="shouldShowPage(pagina)" class="btn btn-outline-primary custom-hover" [class.active]="pagina === paginaActual" (click)="cambiarPagina(pagina)">
+        {{ pagina }}
+      </button>
+      <span *ngIf="shouldShowEllipsis(pagina)" class="px-2">...</span>
+    </ng-container>
+    <button class="btn btn-outline-primary ml-1 custom-hover" [disabled]="paginaActual === paginasTotales.length" (click)="cambiarPagina(paginaActual + 1)">Next</button>
+  </div>
+</div>

@@ -19,36 +19,30 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<Order> save(@RequestBody Order order){
-        System.out.println(order.getOrderState());
-        if (order.getOrderState().toString().equals(OrderState.CANCELLED.toString()) ){
-            order.setOrderState(OrderState.CANCELLED);
-        }else{
-            order.setOrderState(OrderState.CONFIRMED);
-        }
-
+    public ResponseEntity<Order> save(@RequestBody Order order) {
+        // Establece siempre el estado de la orden como CONFIRMED
+        order.setOrderState(OrderState.CONFIRMED);
         return ResponseEntity.ok(orderService.save(order));
     }
 
     @PostMapping("/update/state/order")
-    public ResponseEntity updateStateById(@RequestParam Integer id, @RequestParam String state){
+    public ResponseEntity updateStateById(@RequestParam Integer id, @RequestParam String state) {
         orderService.updateStateById(id, state);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<Order>> findAll(){
+    public ResponseEntity<Iterable<Order>> findAll() {
         return ResponseEntity.ok(orderService.findAll());
     }
 
     @GetMapping("{variable}")
-    public ResponseEntity<Order> findById(@PathVariable("variable") Integer id){
-        return  ResponseEntity.ok(orderService.findById(id));
+    public ResponseEntity<Order> findById(@PathVariable("variable") Integer id) {
+        return ResponseEntity.ok(orderService.findById(id));
     }
 
     @GetMapping("/by-user/{id}")
-    public ResponseEntity<Iterable<Order>> findByUserId(@PathVariable("id") Integer userId){
+    public ResponseEntity<Iterable<Order>> findByUserId(@PathVariable("id") Integer userId) {
         return ResponseEntity.ok(orderService.findByUserId(userId));
     }
-
 }

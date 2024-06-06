@@ -1,0 +1,30 @@
+<header class="text-gray-600 body-font" style="background-color: #f9f9f9;">
+  <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+    <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+      </svg>
+      <span class="ml-3 text-xl"></span>
+    </a>
+    <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+      <a *ngIf="isAdmin" class="mr-5 hover:text-gray-900" routerLink="/admin/category">Categorias</a>
+      <a *ngIf="isAdmin" class="mr-5 hover:text-gray-900" routerLink="/admin/product">Productos</a>
+      <a class="mr-5 hover:text-gray-900 flex items-center" routerLink="/cart/sumary">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5 mr-1" viewBox="0 0 24 24">
+          <path d="M3 3h2l.6 2M7 13h10l4-8H5.6M7 13L5.6 7M7 13l-4 8M17 13l1.4 6M7 13l1.4 6M5 21h14"></path>
+        </svg>
+
+      </a>
+      <a *ngIf="isAuthenticated" class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base login-button" routerLink="/logout" (click)="logout()">Logout
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg>
+      </a>
+      <a *ngIf="!isAuthenticated" class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base login-button" routerLink="/user/login">Login
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </nav>
+  </div>
+</header>

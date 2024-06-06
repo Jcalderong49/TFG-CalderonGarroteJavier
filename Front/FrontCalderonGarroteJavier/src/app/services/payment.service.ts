@@ -1,21 +1,20 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DataPayment } from '../Clases/data-payment';
 import { Observable } from 'rxjs';
-import { UrlPaypalResponse } from '../Clases/url-paypal-response';
-import { HeaderService } from './header.service';
+import { DataPayment } from '../Clases/data-payment';
+import { SessionStorageService } from '../services/session-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaymentService {
-  private apiUrl:string='http://localhost:8086/api/v1/payments';
+  private apiUrl = 'http://localhost:8086/api/v1/payments/paypal';
 
-  constructor(private http:HttpClient, private headerService : HeaderService) { }
+  constructor(private http: HttpClient, private sessionStorage: SessionStorageService) {}
 
-  getUrlPaypalPayment(dataPayment:DataPayment):Observable<UrlPaypalResponse>{
-    console.log('Header:'+this.headerService.headers.get('Content-Type'))
-    return this.http.post<UrlPaypalResponse>(this.apiUrl, dataPayment, { headers: this.headerService.headers });
+  getUrlPaypalPayment(dataPayment: DataPayment): Observable<any> {
+    const token = this.sessionStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(this.apiUrl, dataPayment, { headers });
   }
-
 }

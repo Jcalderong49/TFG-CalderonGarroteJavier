@@ -5,15 +5,13 @@ import { RouterModule, Routes } from '@angular/router'; // Asegúrate de que est
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { ProductListComponent } from './components/product-list/product-list.component';
-import { HeaderAdminComponent } from './components/header-admin/header-admin.component';
-import { ProductAddComponent } from './components/product-add/product-add.component';
+import { ProductListComponent } from './components/Product/product-list/product-list.component';
+import { HeaderAdminComponent } from './components/nabvar/header-admin/header-admin.component';
+import { ProductAddComponent } from './components/Product/product-add/product-add.component';
 import { FormsModule } from '@angular/forms';
-import { ToastrModule } from 'ngx-toastr';
 import { CategoryListComponent } from './components/category/category-list/category-list.component';
 import { CategoryAddComponent } from './components/category/category-add/category-add.component';
 import { DetailProductComponent } from './components/cart/detail-product/detail-product.component';
-import { HeaderUserComponent } from './components/header-user/header-user.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SumaryOrderComponent } from './components/orders/sumary-order/sumary-order.component';
 import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
@@ -21,6 +19,7 @@ import { RegistrationComponent } from './components/authetication/registration/r
 import { LoginComponent } from './components/authetication/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { authGuard } from './guards/auth.guard';
+import {FooterComponent} from "./components/footer/footer.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -35,7 +34,8 @@ const routes: Routes = [
   { path: 'payment/success', component: PaymentSuccessComponent },
   { path: 'user/register', component: RegistrationComponent },
   { path: 'user/login', component: LoginComponent },
-  { path: 'logout', component: LogoutComponent }
+  { path: 'logout', component: LogoutComponent },
+  {path:'user/registro',component:RegistrationComponent}
 ];
 
 @NgModule({
@@ -48,7 +48,6 @@ const routes: Routes = [
     CategoryListComponent,
     CategoryAddComponent,
     DetailProductComponent,
-    HeaderUserComponent,
     SumaryOrderComponent,
     PaymentSuccessComponent,
     RegistrationComponent,
@@ -60,8 +59,9 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(routes), // Asegúrate de que esto esté correcto
-    ToastrModule.forRoot(),
+    RouterModule.forRoot(routes),
+    FooterComponent,
+    // Asegúrate de que esto esté correcto
   ],
   providers: [],
   bootstrap: [AppComponent]
