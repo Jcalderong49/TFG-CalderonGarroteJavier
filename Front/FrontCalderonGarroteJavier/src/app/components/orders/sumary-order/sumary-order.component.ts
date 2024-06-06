@@ -52,7 +52,7 @@ export class SumaryOrderComponent implements OnInit {
       this.orderProducts.push(orderProduct);
     });
 
-    let order = new Order(null, new Date(), this.orderProducts, this.userId, OrderState.CANCELLED);
+    let order = new Order(null, new Date(), this.orderProducts, this.userId, OrderState.CONFIRMED);  // Cambiado a CONFIRMED
     console.log('Order: ' + order.orderState);
     this.orderService.createOrder(order).subscribe(
       data => {
@@ -63,7 +63,15 @@ export class SumaryOrderComponent implements OnInit {
           title: 'Orden Creada',
           text: 'Su orden ha sido creada exitosamente.'
         });
-        this.redirectToPaypal();
+        if (data.id !== null) {
+          this.redirectToPaypal(data.id);
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'La orden no tiene un ID válido. Inténtelo de nuevo.'
+          });
+        }
       },
       error => {
         Swal.fire({
@@ -76,8 +84,13 @@ export class SumaryOrderComponent implements OnInit {
     );
   }
 
-  redirectToPaypal() {
-    let dataPayment = new DataPayment('PAYPAL', this.totalCart.toString(), 'USD', 'COMPRA');
+  redirectToPaypal(orderId: number) {
+    const total = this.totalCart;
+    const currency = 'USD';
+    const method = 'paypal';
+    const description = 'Compra en Spring eCommerce';
+
+    let dataPayment = new DataPayment(method, total.toString(), currency, description);
     console.log('Data Payment:', dataPayment);
 
     this.paymentService.getUrlPaypalPayment(dataPayment).subscribe(

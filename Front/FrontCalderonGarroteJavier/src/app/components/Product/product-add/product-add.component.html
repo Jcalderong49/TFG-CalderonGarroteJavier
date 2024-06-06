@@ -1,0 +1,86 @@
+<div class="container mx-auto px-4 py-8">
+
+  <!-- Page Heading/Breadcrumbs -->
+  <h1 class="text-3xl font-semibold text-center">
+    eCommerce <small class="text-base font-normal">Productos</small>
+  </h1>
+
+  <ol class="breadcrumb flex list-none justify-center p-0 mb-4">
+    <li class="breadcrumb-item"><a href="#" class="text-blue-600 hover:text-blue-800">Home</a></li>
+    <li class="breadcrumb-item active text-gray-500">Crear Productos</li>
+  </ol>
+
+  <h2 class="text-2xl font-semibold text-center mb-5">Crear Producto</h2>
+  <form class="w-full max-w-2xl mx-auto" (submit)="addProduct()" enctype="multipart/form-data">
+
+    <div class="flex flex-col items-center justify-center mb-6 w-full">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="category">
+        Elija una categoría:
+      </label>
+      <div class="w-full">
+        <select class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+                id="category" [(ngModel)]="categoryId" name="category">
+          <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center justify-center mb-6 w-full">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="Code">
+        Código:
+      </label>
+      <div class="w-full">
+        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+               type="number" step="any" id="Code" [(ngModel)]="code" name="Code" placeholder="Ingrese el Codigo del producto" required>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center justify-center mb-6 w-full">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nombre">
+        Nombre:
+      </label>
+      <div class="w-full">
+        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+               type="text" id="nombre" [(ngModel)]="name" name="nombre" placeholder="Ingrese el nombre del producto" required>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center justify-center mb-6 w-full">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="descripcion">
+        Descripción:
+      </label>
+      <div class="w-full">
+        <textarea class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+                  id="descripcion" [(ngModel)]="description" name="descripcion" placeholder="Ingrese la descripcion del producto" required></textarea>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center justify-center mb-6 w-full">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="precio">
+        Precio:
+      </label>
+      <div class="w-full">
+        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+               type="number" step="any" id="precio" [(ngModel)]="price" name="precio" placeholder="Ingrese el precio del producto" required>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center justify-center mb-6 w-full">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="img">
+        Imagen:
+      </label>
+      <div class="w-full">
+        <input type="file" class="appearance-none block w-full text-sm text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+               id="img" name="img" (change)="onFileSelected($event)">
+      </div>
+    </div>
+
+    <div class="flex justify-center w-full">
+      <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Guardar
+      </button>
+    </div>
+
+  </form>
+
+</div>
