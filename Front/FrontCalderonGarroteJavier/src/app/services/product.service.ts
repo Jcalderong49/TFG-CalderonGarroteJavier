@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Product } from '../Clases/product';
+import { Product} from "../Clases/product";
 import { HeaderService } from './header.service';
 import { SessionStorageService } from './session-storage.service';
 

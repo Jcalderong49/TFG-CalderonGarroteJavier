@@ -1,3 +1,4 @@
+<app-header-admin></app-header-admin>
 <div class="container mx-auto px-5 py-16">
   <!-- Page Heading/Breadcrumbs -->
   <div class="title border-b-2 border-black mx-8 mb-8">
@@ -11,12 +12,12 @@
 
   <div class="lg:w-1/2 w-full mx-auto">
     <h2 class="text-xl font-semibold mb-4 text-center">Crear Categoría</h2>
-    <form class="form-horizontal">
-      <input type="hidden" [(ngModel)]="id">
+    <form class="form-horizontal" (ngSubmit)="addCategory()">
+      <input type="hidden" [(ngModel)]="id" name="id">
       <div class="form-group mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="nombre">Nombre:</label>
         <input [(ngModel)]="name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
-               id="name" name="name" placeholder="Ingrese el nombre de la categoría" autocomplete="off" minlength="5">
+               id="name" name="name" placeholder="Ingrese el nombre de la categoría" autocomplete="off" minlength="5" required>
       </div>
       <div class="flex justify-center">
         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg focus:outline-none focus:shadow-outline">

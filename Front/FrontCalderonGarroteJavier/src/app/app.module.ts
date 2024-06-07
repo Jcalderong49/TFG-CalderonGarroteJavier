@@ -20,6 +20,10 @@ import { LoginComponent } from './components/authetication/login/login.component
 import { LogoutComponent } from './components/logout/logout.component';
 import { authGuard } from './guards/auth.guard';
 import {FooterComponent} from "./components/footer/footer.component";
+import {CookiesComponent} from "./components/cookies/cookies.component";
+
+
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -61,7 +65,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
     FooterComponent,
-    // Asegúrate de que esto esté correcto
+    CookiesComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

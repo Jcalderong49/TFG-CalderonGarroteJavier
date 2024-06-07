@@ -1,28 +1,29 @@
+<app-header-admin></app-header-admin>
 <!-- Page Content -->
 <div class="container mx-auto px-4">
   <!-- Page Heading/Breadcrumbs -->
-  <h1 class="text-3xl font-semibold mt-4 mb-3">
-    Spring eCommerce <small class="font-light">Resumen de la orden</small>
+  <h1 class="text-3xl font-semibold mt-4 mb-3 text-center">
+    Cafeteria Mallorca <small class="font-light"> Resumen de la orden</small>
   </h1>
-  <ol class="list-reset flex text-grey-dark">
+  <ol class="list-reset flex justify-center text-grey-dark mb-4">
     <li><a href="/" class="text-blue-600 hover:text-blue-700">Home</a></li>
     <li><span class="mx-2">/</span></li>
     <li class="text-gray-500">Orden</li>
   </ol>
 
   <!-- Blog Post -->
-  <div class="bg-white rounded-lg shadow-lg mb-4">
-    <div class="p-6">
-      <div class="flex flex-wrap">
-        <div class="lg:w-3/4 pr-4 pl-4">
-          <div class="mb-6">
-            <h5 class="text-xl font-bold mb-2">DATOS ORDEN</h5>
-            <p><strong>Nombre:</strong> {{firstName}} {{lastName}}</p>
-            <p><strong>Correo:</strong> {{email}}</p>
-            <p><strong>Dirección:</strong> {{address}}</p>
-          </div>
-          <div class="mb-6">
-            <h5 class="text-xl font-bold mb-2">PRODUCTOS</h5>
+  <div class="bg-white rounded-lg shadow-lg mb-4 p-6">
+    <div class="flex flex-wrap">
+      <div class="lg:w-3/4 w-full pr-4 pl-4 mb-6 lg:mb-0">
+        <div class="mb-6">
+          <h5 class="text-xl font-bold mb-2">DATOS ORDEN</h5>
+          <p><strong>Nombre:</strong> {{firstName}} {{lastName}}</p>
+          <p><strong>Correo:</strong> {{email}}</p>
+          <p><strong>Dirección:</strong> {{address}}</p>
+        </div>
+        <div class="mb-6">
+          <h5 class="text-xl font-bold mb-2">PRODUCTOS</h5>
+          <div class="overflow-x-auto">
             <table class="table-auto w-full">
               <thead>
               <tr>
@@ -34,7 +35,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let item of items">
+              <tr *ngFor="let item of items" class="border-t">
                 <td class="border px-4 py-2">{{item.productName}}</td>
                 <td class="border px-4 py-2">{{item.price}}</td>
                 <td class="border px-4 py-2">{{item.quantity}}</td>
@@ -47,20 +48,20 @@
             </table>
           </div>
         </div>
+      </div>
 
-        <div class="lg:w-1/4 pl-4">
-          <h2 class="text-xl font-bold mb-2">Resumen Orden</h2>
-          <ul class="list-none">
-            <li class="mb-3 p-3 bg-gray-200 rounded">
-              <h5 class="font-bold">Total: {{totalCart}}</h5>
-            </li>
-            <li>
-              <button class="inline-block align-baseline font-bold text-sm text-white bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded flex items-center space-x-2" (click)="generateOrder()">
-                <i class="fab fa-paypal"></i><span>Pagar con PayPal</span>
-              </button>
-            </li>
-          </ul>
-        </div>
+      <div class="lg:w-1/4 w-full pl-4">
+        <h2 class="text-xl font-bold mb-2">Resumen Orden</h2>
+        <ul class="list-none">
+          <li class="mb-3 p-3 bg-gray-200 rounded">
+            <h5 class="font-bold">Total: {{totalCart}}</h5>
+          </li>
+          <li>
+            <button class="inline-block align-baseline font-bold text-sm text-white bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded flex items-center justify-center space-x-2 w-full" (click)="generateOrder()">
+              <i class="fab fa-paypal"></i><span>Pagar con PayPal</span>
+            </button>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
