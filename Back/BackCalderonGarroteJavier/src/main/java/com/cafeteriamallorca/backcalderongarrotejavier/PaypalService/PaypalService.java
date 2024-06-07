@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class PaypalService {
@@ -27,7 +28,7 @@ public class PaypalService {
     ) throws PayPalRESTException {
         Amount amount = new Amount();
         amount.setCurrency(currency);
-        amount.setTotal(String.format("%.2f", total));
+        amount.setTotal(String.format(Locale.forLanguageTag(currency), "%.2f", total));
 
         Transaction transaction = new Transaction();
         transaction.setDescription(description);
@@ -52,11 +53,17 @@ public class PaypalService {
         return payment.create(apiContext);
     }
 
-    public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException {
+    public  Payment executePayment(
+            String paymentId,
+            String payerId
+    ) throws PayPalRESTException {
         Payment payment = new Payment();
         payment.setId(paymentId);
+
         PaymentExecution paymentExecution = new PaymentExecution();
         paymentExecution.setPayerId(payerId);
-        return payment.execute(apiContext, paymentExecution);
+
+        return  payment.execute(apiContext,paymentExecution);
+
     }
 }

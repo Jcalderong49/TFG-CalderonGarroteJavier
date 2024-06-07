@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../Clases/user';
+import { User} from "../Clases/user";
 import { Observable } from 'rxjs';
-import { Userdto } from '../Clases/userdto';
-import { Jwtclient } from '../Clases/jwtclient';
+import { Userdto} from "../Clases/userdto";
+import { Jwtclient} from "../Clases/jwtclient";
 
 @Injectable({
   providedIn: 'root'

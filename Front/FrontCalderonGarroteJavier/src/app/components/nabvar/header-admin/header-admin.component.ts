@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SessionStorageService } from "../../../services/session-storage.service";
+import { SessionStorageService } from '../../../services/session-storage.service';
 
 export enum UserType {
   ADMIN = 'ADMIN',
@@ -14,8 +14,11 @@ export enum UserType {
 export class HeaderAdminComponent implements OnInit {
   isAdmin: boolean = false;
   isAuthenticated: boolean = false;
+  logoUrl: string;
 
-  constructor(private sessionStorage: SessionStorageService) {}
+  constructor(private sessionStorage: SessionStorageService) {
+    this.logoUrl = 'http://localhost:8086/images/Logo.png';
+  }
 
   ngOnInit(): void {
     const token = this.sessionStorage.getItem('token');

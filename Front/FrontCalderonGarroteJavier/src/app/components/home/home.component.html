@@ -1,22 +1,20 @@
-<div class="container px-5 py-24 mx-auto">
-  <header class="jumbotron my-4">
-    <h1 class="display-3">Bienvenido a Cafeteria Mallorca</h1>
-    <p class="lead">Tu tienda de productos en Línea</p>
+<app-header-admin></app-header-admin>
+<div class="container mx-auto px-5 py-10">
+  <header class="text-center">
+    <h1 class="text-4xl font-bold mb-2">Bienvenido a Cafetería Mallorca</h1>
+    <p class="text-lg text-gray-700">Tu tienda de productos en línea</p>
   </header>
-  <div class="flex flex-wrap -m-4">
-    <div *ngFor="let p of products" class="lg:w-1/4 md:w-1/2 p-4 w-full">
-      <a class="block relative h-48 rounded overflow-hidden">
-        <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="{{ p.urlImage }}">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+    <div *ngFor="let p of products" class="rounded-lg overflow-hidden shadow-lg">
+      <a class="block">
+        <img alt="producto" class="object-cover w-full h-48" [src]="p.urlImage">
       </a>
-      <div class="mt-4">
-        <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">{{ p.code }}</h3>
-        <h2 class="text-gray-900 title-font text-lg font-medium">{{ p.name }}</h2>
-        <p class="mt-1">{{ p.price }}€</p>
-        <a [routerLink]="['/cart/detailproduct', p.id]" class="primary-btn">Ver producto</a>
-
+      <div class="p-6">
+        <h3 class="text-gray-500 text-xs tracking-widest uppercase mb-2">{{ p.code }}</h3>
+        <h2 class="text-xl font-semibold mb-2">{{ p.name }}</h2>
+        <p class="text-gray-700 text-lg mb-4">{{ p.price }}€</p>
+        <a [routerLink]="['/cart/detailproduct', p.id]" class="block w-full py-2 px-4 bg-blue-500 text-white text-center rounded-md font-semibold hover:bg-blue-600 transition duration-300">Ver producto</a>
       </div>
     </div>
   </div>
 </div>
-
-

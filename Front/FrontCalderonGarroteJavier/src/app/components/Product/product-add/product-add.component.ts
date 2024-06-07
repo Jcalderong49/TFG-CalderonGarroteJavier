@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { Category } from "../../../Clases/category";
 import { ProductService } from "../../../services/product.service";
 import { CategoryService } from "../../../services/category.service";
 import { SessionStorageService } from "../../../services/session-storage.service";
@@ -23,21 +22,21 @@ export class ProductAddComponent implements OnInit {
   user: number = 0;
 
   selectFile!: File;
-
-  categories: Category[] = [];
+  categories: any[] = [];
 
   constructor(private productService: ProductService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
               private categoryService: CategoryService,
-              private sessionStorage: SessionStorageService) {
-  }
+              private sessionStorage: SessionStorageService) { }
 
   ngOnInit(): void {
     this.getCategories();
     this.getProductById();
-    this.user = this.sessionStorage.getItem('token').id;
-    this.userId = this.user.toString();
+    const user = this.sessionStorage.getItem('token');
+    if (user && user.id) {
+      this.userId = user.id.toString();
+    }
   }
 
   addProduct() {
@@ -47,34 +46,35 @@ export class ProductAddComponent implements OnInit {
     formData.append('name', this.name);
     formData.append('description', this.description);
     formData.append('price', this.price.toString());
-    formData.append('image', this.selectFile);
+    if (this.selectFile) {
+      formData.append('image', this.selectFile);
+    }
     formData.append('urlImage', this.urlImage);
     formData.append('userId', this.userId);
     formData.append('categoryId', this.categoryId);
-    //console.log(formData.get('id'));
-    console.log(formData);
 
     this.productService.createProduct(formData).subscribe(
       data => {
         console.log(data);
-        if (this.id == 0) {
+        if (this.id === 0) {
           Swal.fire('Success', 'Producto registrado correctamente', 'success');
         } else {
           Swal.fire('Success', 'Producto actualizado correctamente', 'success');
         }
-
         this.router.navigate(['admin/product']);
+      },
+      error => {
+        console.error('Error creating product', error);
+        Swal.fire('Error', 'No se pudo crear el producto. Verifique sus permisos.', 'error');
       }
     );
-
   }
 
   getProductById() {
     this.activatedRoute.params.subscribe(
       prod => {
-        let id = prod['id'];
+        const id = prod['id'];
         if (id) {
-          console.log('el valor de la variable id es: ' + id);
           this.productService.getProductById(id).subscribe(
             data => {
               this.id = data.id;
@@ -88,9 +88,7 @@ export class ProductAddComponent implements OnInit {
             }
           );
         }
-
       }
-
     );
   }
 
@@ -99,9 +97,8 @@ export class ProductAddComponent implements OnInit {
   }
 
   getCategories() {
-    return this.categoryService.getCategoryList().subscribe(
+    this.categoryService.getCategoryList().subscribe(
       data => this.categories = data
     );
   }
-
 }
