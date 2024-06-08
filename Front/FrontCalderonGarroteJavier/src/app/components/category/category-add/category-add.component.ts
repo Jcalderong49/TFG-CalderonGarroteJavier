@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Category } from "../../../Clases/category";
-import { CategoryService } from "../../../services/category.service";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { CategoryService } from '../../../services/category.service';
+import { Category } from '../../../Clases/category';
 
 @Component({
   selector: 'app-category-add',
@@ -10,22 +11,36 @@ import Swal from 'sweetalert2';
   styleUrls: ['./category-add.component.css']
 })
 export class CategoryAddComponent implements OnInit {
-  id: number = 0;
-  name: string = '';
+  categoryForm: FormGroup;
 
   constructor(
     private categoryService: CategoryService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    private fb: FormBuilder
+  ) {
+    this.categoryForm = this.fb.group({
+      id: [null], // Reemplazado 0 por null para que sea más genérico
+      name: ['', [Validators.required, Validators.minLength(5)]]
+    });
+  }
 
   ngOnInit(): void {
     this.getCategoryById();
   }
 
   addCategory() {
-    console.log(this.name);
-    let category = new Category(this.id, this.name);
+    if (this.categoryForm.invalid) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Formulario inválido',
+        text: 'Por favor, rellene todos los campos correctamente'
+      });
+      return;
+    }
+
+    const { id, name } = this.categoryForm.value;
+    const category = new Category(id, name); // Utilizado const en lugar de let para category
     this.categoryService.createCategory(category).subscribe(
       res => {
         Swal.fire({
@@ -51,13 +66,14 @@ export class CategoryAddComponent implements OnInit {
   getCategoryById() {
     this.activatedRoute.params.subscribe(
       params => {
-        let id = params['id'];
+        const id = params['id'];
         if (id) {
-          console.log('Valor de la variable id: ' + id);
           this.categoryService.getCategoryById(id).subscribe(
             data => {
-              this.id = data.id;
-              this.name = data.name;
+              this.categoryForm.patchValue({
+                id: data.id,
+                name: data.name
+              });
             }
           );
         }

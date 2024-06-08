@@ -8,7 +8,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ProductListComponent } from './components/Product/product-list/product-list.component';
 import { HeaderAdminComponent } from './components/nabvar/header-admin/header-admin.component';
 import { ProductAddComponent } from './components/Product/product-add/product-add.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CategoryListComponent } from './components/category/category-list/category-list.component';
 import { CategoryAddComponent } from './components/category/category-add/category-add.component';
 import { DetailProductComponent } from './components/cart/detail-product/detail-product.component';
@@ -65,7 +65,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
     FooterComponent,
-    CookiesComponent,
+    CookiesComponent,ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

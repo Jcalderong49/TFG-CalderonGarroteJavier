@@ -4,8 +4,20 @@
     <h1 class="text-4xl font-bold mb-2">Bienvenido a Cafetería Mallorca</h1>
     <p class="text-lg text-gray-700">Tu tienda de productos en línea</p>
   </header>
+  <div class="flex justify-center items-center mb-8">
+    <div class="flex items-center relative max-w-sm w-full">
+      <input
+        [(ngModel)]="searchTerm"
+        (input)="applyFilter()"
+        class="px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white w-full pl-8"
+        type="text"
+        placeholder="Buscar productos..."
+      />
+      <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+    </div>
+  </div>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
-    <div *ngFor="let p of products" class="rounded-lg overflow-hidden shadow-lg">
+    <div *ngFor="let p of filteredProducts" class="rounded-lg overflow-hidden shadow-lg">
       <a class="block">
         <img alt="producto" class="object-cover w-full h-48" [src]="p.urlImage">
       </a>

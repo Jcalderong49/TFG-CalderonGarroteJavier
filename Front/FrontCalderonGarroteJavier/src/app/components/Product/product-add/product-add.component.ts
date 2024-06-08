@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { ProductService } from "../../../services/product.service";
 import { CategoryService } from "../../../services/category.service";
 import { SessionStorageService } from "../../../services/session-storage.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-product-add',
@@ -11,6 +12,8 @@ import { SessionStorageService } from "../../../services/session-storage.service
   styleUrls: ['./product-add.component.css']
 })
 export class ProductAddComponent implements OnInit {
+
+  categoryForm!: FormGroup;  // Define el FormGroup aquí
   id: number = 0;
   code: string = '';
   name: string = '';
@@ -28,9 +31,17 @@ export class ProductAddComponent implements OnInit {
               private router: Router,
               private activatedRoute: ActivatedRoute,
               private categoryService: CategoryService,
-              private sessionStorage: SessionStorageService) { }
+              private sessionStorage: SessionStorageService   , private fb: FormBuilder  // Agrega FormBuilder a tu constructor
+) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {this.categoryForm = this.fb.group({
+    category: ['', Validators.required],
+    Code: ['', Validators.required],
+    nombre: ['', Validators.required],
+    descripcion: ['', Validators.required],
+    precio: ['', Validators.required],
+    img: ['', Validators.required]
+  });
     this.getCategories();
     this.getProductById();
     const user = this.sessionStorage.getItem('token');

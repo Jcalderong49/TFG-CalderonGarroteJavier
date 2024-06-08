@@ -11,17 +11,18 @@
   </ol>
 
   <h2 class="text-2xl font-semibold text-center mb-5">Crear Producto</h2>
-  <form class="w-full max-w-2xl mx-auto" (submit)="addProduct()" enctype="multipart/form-data">
+  <form class="w-full max-w-2xl mx-auto" (submit)="addProduct()" enctype="multipart/form-data" [formGroup]="categoryForm">
 
     <div class="flex flex-col items-center justify-center mb-6 w-full">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="category">
         Elija una categoría:
       </label>
       <div class="w-full">
-        <select class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
-                id="category" [(ngModel)]="categoryId" name="category">
+        <select formControlName="category" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+                id="category">
           <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
         </select>
+        <span *ngIf="categoryForm.get('category')?.errors?.['required'] && categoryForm.get('category')?.touched" class="text-red-500 text-xs mt-2 mb-3">Campo requerido</span>
       </div>
     </div>
 
@@ -30,8 +31,9 @@
         Código:
       </label>
       <div class="w-full">
-        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
-               type="number" step="any" id="Code" [(ngModel)]="code" name="Code" placeholder="Ingrese el Codigo del producto" required>
+        <input formControlName="Code" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+               type="number" step="any" id="Code" [(ngModel)]="code" name="Code" placeholder="Ingrese el Código del producto" required>
+        <span *ngIf="categoryForm.get('Code')?.errors?.['required'] && categoryForm.get('Code')?.touched" class="text-red-500 text-xs mt-2 mb-3">Campo requerido</span>
       </div>
     </div>
 
@@ -40,8 +42,9 @@
         Nombre:
       </label>
       <div class="w-full">
-        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+        <input formControlName="nombre" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
                type="text" id="nombre" [(ngModel)]="name" name="nombre" placeholder="Ingrese el nombre del producto" required>
+        <span *ngIf="categoryForm.get('nombre')?.errors?.['required'] && categoryForm.get('nombre')?.touched" class="text-red-500 text-xs mt-2 mb-3">Campo requerido</span>
       </div>
     </div>
 
@@ -50,8 +53,9 @@
         Descripción:
       </label>
       <div class="w-full">
-        <textarea class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
-                  id="descripcion" [(ngModel)]="description" name="descripcion" placeholder="Ingrese la descripcion del producto" required></textarea>
+        <textarea formControlName="descripcion" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+                  id="descripcion" [(ngModel)]="description" name="descripcion" placeholder="Ingrese la descripción del producto" required></textarea>
+        <span *ngIf="categoryForm.get('descripcion')?.errors?.['required'] && categoryForm.get('descripcion')?.touched" class="text-red-500 text-xs mt-2 mb-3">Campo requerido</span>
       </div>
     </div>
 
@@ -60,8 +64,9 @@
         Precio:
       </label>
       <div class="w-full">
-        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+        <input formControlName="precio" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
                type="number" step="any" id="precio" [(ngModel)]="price" name="precio" placeholder="Ingrese el precio del producto" required>
+        <span *ngIf="categoryForm.get('precio')?.errors?.['required'] && categoryForm.get('precio')?.touched" class="text-red-500 text-xs mt-2 mb-3">Campo requerido</span>
       </div>
     </div>
 
@@ -70,8 +75,9 @@
         Imagen:
       </label>
       <div class="w-full">
-        <input type="file" class="appearance-none block w-full text-sm text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
-               id="img" name="img" (change)="onFileSelected($event)">
+        <input formControlName="img" type="file" class="appearance-none block w-full text-sm text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+               id="img" name="img" (change)="onFileSelected($event)" required>
+        <span *ngIf="categoryForm.get('img')?.errors?.['required'] && categoryForm.get('img')?.touched" class="text-red-500 text-xs mt-2 mb-3">Campo requerido</span>
       </div>
     </div>
 

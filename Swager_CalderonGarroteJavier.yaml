@@ -1,0 +1,547 @@
+openapi: 3.0.0
+info:
+  title: API de Tienda en Línea
+  description: API para gestionar las operaciones de una tienda en línea.
+  version: 1.0.0
+servers:
+  - url: http://localhost:4200
+    description: Servidor de desarrollo
+
+paths:
+  /api/v1/admin/categories:
+    post:
+      summary: Añade una nueva categoría
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        201:
+          description: Categoría creada exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+    get:
+      summary: Lista todas las categorías
+      responses:
+        200:
+          description: Listado de categorías
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+  /api/v1/admin/categories/{id}:
+    get:
+      summary: Encuentra una categoría por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Detalles de la categoría
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+    delete:
+      summary: Elimina una categoría por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Categoría eliminada
+  /api/v1/home:
+    get:
+      summary: Lista todos los productos
+      responses:
+        200:
+          description: Listado de productos disponibles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+  /api/v1/home/{id}:
+    get:
+      summary: Encuentra un producto por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Detalles del producto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+  /api/v1/security/login:
+    post:
+      summary: Autentica a un usuario y retorna un token JWT
+      description: "Autentica el usuario basado en las credenciales proporcionadas y retorna un token JWT."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+      responses:
+        200:
+          description: Autenticación exitosa, token retornado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JWTClient'
+        401:
+          description: Autenticación fallida
+        500:
+          description: Error interno del servidor
+  /api/v1/orders:
+    post:
+      summary: Crea una nueva orden
+      description: "Crea una nueva orden con estado CONFIRMADO."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        200:
+          description: Orden creada exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+    get:
+      summary: Lista todas las órdenes
+      responses:
+        200:
+          description: Listado de todas las órdenes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+  /api/v1/orders/{id}:
+    get:
+      summary: Encuentra una orden por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Detalles de la orden encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+  /api/v1/orders/update/state/order:
+    post:
+      summary: Actualiza el estado de una orden
+      description: "Actualiza el estado de una orden especificada por ID."
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: state
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Estado de la orden actualizado
+  /api/v1/orders/by-user/{id}:
+    get:
+      summary: Lista órdenes por ID de usuario
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Listado de órdenes del usuario especificado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+  /api/v1/payments:
+    post:
+      summary: Inicia un proceso de pago con PayPal
+      description: "Crea un pago utilizando el servicio de PayPal y retorna la URL para aprobar el pago."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataPayment'
+      responses:
+        200:
+          description: Pago creado exitosamente, retorna URL de aprobación.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/URLPaypalResponse'
+        500:
+          description: Error al crear el pago
+  /api/v1/payments/success:
+    get:
+      summary: Gestiona el éxito de un pago con PayPal
+      parameters:
+        - name: paymentId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: PayerID
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Pago ejecutado exitosamente, redirecciona a la página de éxito
+          content:
+            text/html:
+              schema:
+                type: string
+        500:
+          description: Error al ejecutar el pago
+  /api/v1/payments/cancel:
+    get:
+      summary: Gestiona la cancelación de un pago con PayPal
+      responses:
+        200:
+          description: Pago cancelado, redirecciona a la página de cancelación
+          content:
+            text/html:
+              schema:
+                type: string
+  /api/v1/admin/products:
+    post:
+      summary: Crea o actualiza un producto
+      description: "Guarda un producto, utilizando datos proporcionados como ID, código, nombre, etc., incluyendo una imagen opcional."
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                code:
+                  type: string
+                name:
+                  type: string
+                description:
+                  type: string
+                price:
+                  type: number
+                urlImage:
+                  type: string
+                userId:
+                  type: integer
+                categoryId:
+                  type: integer
+                image:
+                  type: string
+                  format: binary
+                  description: "Archivo de imagen opcional para el producto."
+              required:
+                - id
+                - code
+                - name
+                - description
+                - price
+                - urlImage
+                - userId
+                - categoryId
+      responses:
+        201:
+          description: Producto creado o actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+    get:
+      summary: Lista todos los productos
+      responses:
+        200:
+          description: Listado de todos los productos disponibles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+  /api/v1/admin/products/{id}:
+    get:
+      summary: Encuentra un producto por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Detalles del producto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+    delete:
+      summary: Elimina un producto por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Producto eliminado exitosamente
+  /api/v1/security/register:
+    post:
+      summary: Registra un nuevo usuario
+      description: "Registra un nuevo usuario en el sistema, encriptando su contraseña antes de almacenarla."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegistration'
+      responses:
+        201:
+          description: Usuario registrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: Datos inválidos proporcionados
+  /api/v1/users:
+    post:
+      summary: Guarda un nuevo usuario o actualiza un usuario existente
+      description: "Guarda un nuevo usuario o actualiza uno existente en la base de datos."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        200:
+          description: Usuario guardado o actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: Datos inválidos proporcionados
+  /api/v1/users/{id}:
+    get:
+      summary: Encuentra un usuario por ID
+      description: "Retorna un usuario específico basado en el ID proporcionado."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        404:
+          description: Usuario no encontrado
+
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+      required:
+        - id
+        - name
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+          format: float
+        imageUrl:
+          type: string
+      required:
+        - id
+        - name
+        - price
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        orderState:
+          type: string
+          description: "Estado actual de la orden."
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        totalPrice:
+          type: number
+          format: float
+        userId:
+          type: integer
+          format: int64
+      required:
+        - id
+        - orderState
+        - items
+        - totalPrice
+        - userId
+    OrderItem:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+        quantity:
+          type: integer
+        price:
+          type: number
+          format: float
+      required:
+        - productId
+        - quantity
+        - price
+    UserDTO:
+      type: object
+      properties:
+        username:
+          type: string
+          example: usuario@example.com
+        password:
+          type: string
+          format: password
+          example: "contraseña123"
+      required:
+        - username
+        - password
+    JWTClient:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+          description: "ID del usuario autenticado."
+        token:
+          type: string
+          description: "Token JWT generado para el usuario."
+        userType:
+          type: string
+          description: "Tipo de usuario."
+    DataPayment:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: "Monto del pago"
+        currency:
+          type: string
+          description: "Tipo de moneda del pago"
+        method:
+          type: string
+          description: "Método de pago"
+        description:
+          type: string
+          description: "Descripción del pago"
+      required:
+        - amount
+        - currency
+        - method
+        - description
+    URLPaypalResponse:
+      type: object
+      properties:
+        url:
+          type: string
+          description: "URL para redireccionar al usuario para la aprobación del pago"
+    UserRegistration:
+      type: object
+      properties:
+        username:
+          type: string
+          example: usuario@example.com
+        password:
+          type: string
+          format: password
+          example: "contraseña123"
+        email:
+          type: string
+          example: usuario@example.com
+      required:
+        - username
+        - password
+        - email
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        email:
+          type: string
+        userType:
+          type: string
+          description: "Tipo de usuario (ADMIN y USER)"
+      required:
+        - id
+        - username
+        - email
+        - userType

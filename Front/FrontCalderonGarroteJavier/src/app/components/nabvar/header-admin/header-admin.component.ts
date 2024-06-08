@@ -15,6 +15,7 @@ export class HeaderAdminComponent implements OnInit {
   isAdmin: boolean = false;
   isAuthenticated: boolean = false;
   logoUrl: string;
+  isMenuOpen: boolean = false; // Agregamos esta variable para controlar el estado del menú
 
   constructor(private sessionStorage: SessionStorageService) {
     this.logoUrl = 'http://localhost:8086/images/Logo.png';
@@ -26,6 +27,11 @@ export class HeaderAdminComponent implements OnInit {
       this.isAdmin = true;
       this.isAuthenticated = true; // El usuario está autenticado
     }
+  }
+
+  toggleMenu() {
+    // Cambia el estado del menú entre abierto y cerrado
+    this.isMenuOpen = !this.isMenuOpen;
   }
 
   logout() {
